@@ -16,6 +16,7 @@ end
 
 target 'PaqueteStickers' do
   config = use_native_modules!
+  pod 'RNWorklets', :path => '../node_modules/react-native-worklets'
 
   use_react_native!(
     :path => config[:reactNativePath],
