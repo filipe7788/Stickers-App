@@ -1,3 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-export function AppNavigator() { return <View />; }
+
+export function AppNavigator() {
+  return <View />;
+}
