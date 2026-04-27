@@ -1893,6 +1893,62 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
+  - react-native-document-picker (9.3.1):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
+  - react-native-get-random-values (2.0.0):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - react-native-image-picker (8.2.1):
     - boost
     - DoubleConversion
@@ -2911,6 +2967,8 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
+  - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -3047,6 +3105,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-document-picker:
+    :path: "../node_modules/react-native-document-picker"
+  react-native-get-random-values:
+    :path: "../node_modules/react-native-get-random-values"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
@@ -3176,6 +3238,8 @@ SPEC CHECKSUMS:
   React-logger: 984bd45f1fddb75e49627ca13c9470a4f4abe7a7
   React-Mapbuffer: ceeccd6570db88ba4bc04278073392adf96a0fc1
   React-microtasksnativemodule: c71eb8a79998c20dd13de58a7525eb32d200d9c8
+  react-native-document-picker: dcf5e57f3bcae61bf8384a1c6f90896f81e17941
+  react-native-get-random-values: e2acf4070fe4b7325705a05af047449637a27a21
   react-native-image-picker: 0314366753615115fa55c3cc937ac44cb7e75702
   react-native-safe-area-context: c00143b4823773bba23f2f19f85663ae89ceb460
   React-NativeModulesApple: 70b1879ac2b642ef784fb6d43360c40803b0a142
