@@ -1,4 +1,4 @@
-package com.paquetestickers
+package com.filipecruz.paquetestickers
 
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -13,7 +13,7 @@ import java.io.File
 class StickerContentProvider : ContentProvider() {
 
     companion object {
-        const val AUTHORITY = "com.paquetestickers.stickercontentprovider"
+        const val AUTHORITY = "com.filipecruz.paquetestickers.stickercontentprovider"
         const val METADATA_CODE = 1
         const val STICKERS_CODE = 2
 

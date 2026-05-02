@@ -35,9 +35,7 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Used to take photos for stickers</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSPhotoLibraryUsageDescription</key>
+<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to pick photos for stickers</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>

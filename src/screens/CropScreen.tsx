@@ -34,27 +34,19 @@ export function CropScreen({navigation, route}: Props) {
 
   const pack = state.packs.find(p => p.id === packId);
 
-  const handleDone = useCallback(async () => {
-    if (!cropBoxRef.current || !imageSize || !pack) return;
-    const cropRect = cropBoxRef.current.getCropRect();
-
-    const region = computeCropRegion(
-      cropRect,
-      {displayX: 0, displayY: 0, displayWidth, displayHeight},
-      {imageWidth: imageSize.width, imageHeight: imageSize.height},
-    );
-
+  const saveSticker = useCallback(async (cropRegion: import('../utils/imageUtils').CropRegion | null) => {
+    if (!imageSize || !pack) return;
     setProcessing(true);
     try {
       const stickerId = uuidv4();
       const {filePath, sizeBytes} = await processAndSaveSticker(
-        imageUri, region, packId, stickerId,
+        imageUri, cropRegion, packId, stickerId,
       );
 
       if (sizeBytes > MAX_STICKER_BYTES) {
         Alert.alert(
           'Image Too Large',
-          `The cropped sticker is ${Math.round(sizeBytes / 1024)}KB. WhatsApp requires ≤ 100KB. Try cropping tighter or use a simpler image.`,
+          `The sticker is ${Math.round(sizeBytes / 1024)}KB. WhatsApp requires ≤ 100KB. Try cropping tighter or use a simpler image.`,
         );
         return;
       }
@@ -63,7 +55,7 @@ export function CropScreen({navigation, route}: Props) {
       let trayIconFile: string | undefined;
 
       if (isFirstSticker) {
-        trayIconFile = await processTrayIcon(imageUri, region, packId);
+        trayIconFile = await processTrayIcon(imageUri, cropRegion, packId);
       }
 
       dispatch({
@@ -75,13 +67,28 @@ export function CropScreen({navigation, route}: Props) {
         },
       });
 
-      navigation.navigate('PackageDetail', {packId});
+      navigation.pop(2);
     } catch (e: any) {
       Alert.alert('Error', e.message ?? 'Failed to process image');
     } finally {
       setProcessing(false);
     }
-  }, [cropBoxRef, imageSize, imageUri, packId, pack, dispatch, navigation, displayWidth, displayHeight]);
+  }, [imageSize, imageUri, packId, pack, dispatch, navigation]);
+
+  const handleDone = useCallback(async () => {
+    if (!cropBoxRef.current || !imageSize) return;
+    const cropRect = cropBoxRef.current.getCropRect();
+    const region = computeCropRegion(
+      cropRect,
+      {displayX: 0, displayY: 0, displayWidth, displayHeight},
+      {imageWidth: imageSize.width, imageHeight: imageSize.height},
+    );
+    await saveSticker(region);
+  }, [cropBoxRef, imageSize, displayWidth, displayHeight, saveSticker]);
+
+  const handleUseWholeImage = useCallback(async () => {
+    await saveSticker(null);
+  }, [saveSticker]);
 
   return (
     <View style={styles.container}>
@@ -109,10 +116,17 @@ export function CropScreen({navigation, route}: Props) {
       <View style={[styles.controls, {paddingBottom: insets.bottom + 12}]}>
         <TouchableOpacity
           style={[styles.squareToggle, isSquare && styles.squareToggleActive]}
-          onPress={() => setIsSquare(s => !s)}>
+          onPress={() => setIsSquare(s => !s)}
+          disabled={processing}>
           <Text style={[styles.squareToggleText, isSquare && styles.squareToggleTextActive]}>
             ⬛ Square
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.wholeBtn]}
+          onPress={handleUseWholeImage}
+          disabled={processing}>
+          <Text style={styles.wholeBtnText}>Whole</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.doneBtn} onPress={handleDone} disabled={processing}>
           {processing
@@ -135,6 +149,8 @@ const styles = StyleSheet.create({
   squareToggleActive: {borderColor: '#a78bfa', backgroundColor: 'rgba(109,40,217,0.2)'},
   squareToggleText: {color: '#aaa', fontSize: 13, fontWeight: '500'},
   squareToggleTextActive: {color: '#a78bfa'},
+  wholeBtn: {borderWidth: 1.5, borderColor: '#888', borderRadius: 20, paddingHorizontal: 14, paddingVertical: 7},
+  wholeBtnText: {color: '#aaa', fontSize: 13, fontWeight: '500'},
   doneBtn: {backgroundColor: '#6d28d9', borderRadius: 20, paddingHorizontal: 24, paddingVertical: 9},
   doneBtnText: {color: '#fff', fontWeight: '700', fontSize: 15},
 });

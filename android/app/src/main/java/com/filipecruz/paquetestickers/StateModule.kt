@@ -1,4 +1,4 @@
-package com.paquetestickers
+package com.filipecruz.paquetestickers
 
 import com.facebook.react.bridge.*
 

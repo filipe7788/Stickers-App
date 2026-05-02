@@ -43,19 +43,20 @@ export type ProcessedSticker = {uri: string; filePath: string; sizeBytes: number
 
 export async function processAndSaveSticker(
   sourceUri: string,
-  cropRegion: CropRegion,
+  cropRegion: CropRegion | null,
   packId: string,
   stickerId: string,
 ): Promise<ProcessedSticker> {
   await ensurePackDir(packId);
   const destPath = stickerPath(packId, stickerId);
 
+  const actions: ImageManipulator.Action[] = [];
+  if (cropRegion) actions.push({crop: cropRegion});
+  actions.push({resize: {width: 512, height: 512}});
+
   const result = await ImageManipulator.manipulateAsync(
     sourceUri,
-    [
-      {crop: cropRegion},
-      {resize: {width: 512, height: 512}},
-    ],
+    actions,
     {compress: 0.85, format: ImageManipulator.SaveFormat.WEBP},
   );
 
@@ -66,18 +67,19 @@ export async function processAndSaveSticker(
 
 export async function processTrayIcon(
   sourceUri: string,
-  cropRegion: CropRegion,
+  cropRegion: CropRegion | null,
   packId: string,
 ): Promise<string> {
   await ensurePackDir(packId);
   const destPath = trayIconPath(packId);
 
+  const actions: ImageManipulator.Action[] = [];
+  if (cropRegion) actions.push({crop: cropRegion});
+  actions.push({resize: {width: 96, height: 96}});
+
   const result = await ImageManipulator.manipulateAsync(
     sourceUri,
-    [
-      {crop: cropRegion},
-      {resize: {width: 96, height: 96}},
-    ],
+    actions,
     {compress: 0.85, format: ImageManipulator.SaveFormat.WEBP},
   );
 

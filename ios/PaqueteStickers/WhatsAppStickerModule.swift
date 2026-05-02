@@ -60,11 +60,13 @@ class WhatsAppStickerModule: NSObject {
     }
   }
 
-  @objc func isWhatsAppInstalled(_ resolve: RCTPromiseResolveBlock,
-                                  rejecter reject: RCTPromiseRejectBlock) {
+  @objc func isWhatsAppInstalled(_ resolve: @escaping RCTPromiseResolveBlock,
+                                  rejecter reject: @escaping RCTPromiseRejectBlock) {
     guard let url = URL(string: "whatsapp://") else {
       resolve(false); return
     }
-    resolve(UIApplication.shared.canOpenURL(url))
+    DispatchQueue.main.async {
+      resolve(UIApplication.shared.canOpenURL(url))
+    }
   }
 }

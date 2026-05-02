@@ -42,7 +42,8 @@ export function PackageListScreen({navigation}: Props) {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top + 44 : 0}>
       <FlatList
         data={state.packs}
         keyExtractor={p => p.id}

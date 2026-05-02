@@ -5,6 +5,8 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json', { paths: ['#{__dir__}/..'] })"`), "scripts/autolinking")
+
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
@@ -16,6 +18,7 @@ end
 
 target 'PaqueteStickers' do
   config = use_native_modules!
+  use_expo_modules!
   pod 'RNWorklets', :path => '../node_modules/react-native-worklets'
 
   use_react_native!(

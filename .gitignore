@@ -66,6 +66,10 @@ yarn-error.log
 # testing
 /coverage
 
+# Claude / local tools
+.claude/
+scripts/icon_master.png
+
 # Yarn
 .yarn/*
 !.yarn/patches
